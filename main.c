@@ -16,16 +16,17 @@ int main()
 
 	char option = 'N';
 
-	printf("\n\n");
-	printf("Please choose one of the following options\n");
-	printf("S/s - Sudoku\n");
-	printf("A/a - All Lines\n");
-	printf("P/p - Picture Manipulation\n");
-	printf("E/e - Exit\n");
-
-	scanf("%d", &option);
+	
 	do
 	{
+		printf("\n\n");
+		printf("Please choose one of the following options\n");
+		printf("S/s - Sudoku\n");
+		printf("A/a - All Lines\n");
+		printf("P/p - Picture Manipulation\n");
+		printf("E/e - Exit\n");
+
+		scanf("%c", &option);
 		switch (option)
 		{
 		case 'S':

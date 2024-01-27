@@ -7,6 +7,7 @@ void rotateCounterClockwise(int* mat, int size);
 void FlipVertical(int* mat, int size);
 void FlipHorizontal(int* mat, int size);
 void pictureManipulation();
+void printMatrix(const int* mat, int cols, int rows);
 
 
 #endif
