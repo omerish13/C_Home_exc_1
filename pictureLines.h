@@ -1,8 +1,8 @@
 #ifndef __PICTURELINES__
 #define __PICTURELINES__
 
-void addLines(int COLS, int ROWS);
-int initMatSize(int COLS, int ROWS, int* cols, int* rows);
+void addLines();
+int initMatSize(int maxRows, int maxCols,int* cols, int* rows);
 int checkHorizontalLine(const int* mat, int cols, int rows,int x1,int y1, int x2, int y2);
 int checkVerticalLine(const int* mat, int cols, int rows, int x1, int y1, int x2, int y2);
 int getLine(int* mat, int cols, int rows, int* x1, int* y1, int* x2, int* y2);

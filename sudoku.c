@@ -3,6 +3,8 @@
 #include <math.h>
 #include <stdio.h>
 
+#define N 25
+
 int checkRow(const int* mat,int* arr,int size, int cell)
 {
 	memset(arr, 0, size * sizeof(int));
@@ -104,7 +106,7 @@ void initBoard(int* mat, int size)
 	}
 }
 
-int initBoardSize(const int maxSize, int* size)
+int initBoardSize(int maxSize,int* size)
 {
 	printf("Please enter the size of the board (board size will be size, and should be smaller than %d):\n", maxSize);
 	scanf("%d",size);
@@ -124,15 +126,15 @@ int initBoardSize(const int maxSize, int* size)
 	return 1;
 }
 
-void sudokuGame(const int maxSize)
+void sudokuGame()
 {
+	int mat[N][N];
 	int size, init=0;
 	while (!init)
 	{
-		init = initBoardSize(maxSize,&size);
+		init = initBoardSize(N,&size);
 	}
 
-	int mat[size][size];
 	initBoard((int*)mat,size*size);
 
 	showBoard((int*)mat,size);

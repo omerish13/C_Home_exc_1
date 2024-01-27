@@ -6,43 +6,64 @@
 
 #include "sudoku.h"
 #include "pictureLines.h"
-// #include "pictureManipulation.h"
+#include "pictureManipulation.h"
 
-#define N 25
-#define ROWS 50
-#define COLS 50
+
 
 
 int main()
 {
 
-	int option = 0;
-	srand((unsigned)12345); //just for testing
+	char option = 'N';
 
 	printf("\n\n");
 	printf("Please choose one of the following options\n");
-	printf("1 - Sudoku\n");
-	printf("2 - All Lines\n");
-	printf("3 - Picture Manipulation\n");
-	printf("-1 - Exit\n");
+	printf("S/s - Sudoku\n");
+	printf("A/a - All Lines\n");
+	printf("P/p - Picture Manipulation\n");
+	printf("E/e - Exit\n");
 
 	scanf("%d", &option);
-	
-	switch (option)
+	do
 	{
-	case 1:
-		sudokuGame(N);
-		break;
+		switch (option)
+		{
+		case 'S':
+		{
+			sudokuGame();
+			break;
+		}
+		case 's':
+		{
+			sudokuGame();
+			break;
+		}
+		case 'A':
+		{
+			addLines();
+			break;
+		}
+		case 'a':
+		{
+			addLines();
+			break;
+		}
+		case 'P':
+		{
+			pictureManipulation();
+			break;
+		}
+		case 'p':
+		{
+			pictureManipulation();
+			break;
+		}
 
-	case 2:
-		addLines(COLS,ROWS);
-		break;
-
-	case 3:
-		// pictureManipulation();
-		break;
-
-	case -1:
-		break;
-	}
+		case 'E':
+			break;
+		case 'e':
+			break;
+		}
+	} while (option != 'E' && option != 'e');
+	
 }

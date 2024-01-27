@@ -1,65 +1,52 @@
 #include "pictureLines.h"
 #include <stdio.h>
 
-int checkHorizontalLine(const int* mat, int cols, int rows,int x1,int y1, int x2, int y2)
+#define ROWS 50
+#define COLS 50
+
+int checkLine(const int* mat, int cols, int rows,int x1,int y1, int x2, int y2)
 {
     if (x1 > rows || x1 < 1 || y1 > cols || y1 < 1 || y2 > cols || y2 < 1)
         return 0;
-    int startCol = y1,endCol = y2;
+    int startCol = y1,endCol = y2, startRow = x1, endRow = x2;
     if (y1 > 1)
         startCol = y1 - 1;
     if (y2 < cols)
         endCol = y2 + 1;
-    
-    for (int i = startCol; i <= endCol; i++)
-    {
-        if (*(mat + (x1 - 1) * cols + i - 1))
-            return 0;
-        if (x1 > 1 && *(mat + (x1 - 2) * cols + i - 1))
-            return 0;
-        if (x1 < rows && *(mat + x1 * cols + i - 1))
-            return 0;
-    }
-
-    return 1;
-}
-
-int checkVerticalLine(const int* mat, int cols, int rows,int x1,int y1, int x2, int y2)
-{
-    if (y1 > cols || y1 < 1 || x1 > rows || x1 < 1 || x2 > rows || x2 < 1)
-        return 0;
-
-    int startRow = x1, endRow = x2;
     if (x1 > 1)
         startRow = x1 - 1;
     if (x2 < rows)
         endRow = x2 + 1;
+    
+    mat += (startRow - 1) * cols;
     for (int i = startRow; i <= endRow; i++)
     {
-        if (*(mat + (i - 1) * cols + y1 - 1))
-            return 0;
-        if (y1 > 1 && *(mat + (i - 1) * cols + y1 - 2))
-            return 0;
-        if (y1 < cols && *(mat + (i - 1) * cols + y1))
-            return 0;
+        for (int j = startCol; j <= endCol; j++,mat++){
+            if (*(mat))
+                return 0;
+        }
+        mat += cols - startCol;
     }
 
     return 1;
 }
 
+
 void addHorizontalLine(int* mat, int cols, int rows, int x1, int y1, int x2, int y2)
 {
-    for (int i = 0; i < y2 - y1; i++)
+    mat += (x1 - 1)*cols + (y1 - 1);
+    for (int i = 0; i < y2 - y1; i++,mat++)
     {
-        *(mat+(x1*y1+i-1)) = 1;
+        *(mat) = 1;
     }
 }
 
 void addVerticalLine(int* mat, int cols, int rows, int x1, int y1, int x2, int y2)
 {
-    for (int i = 0; i < x2 - x1; i++)
+    mat += (x1 - 1)*cols + (y1 - 1);
+    for (int i = 0; i < x2 - x1; i++,mat+=cols)
     {
-        *(mat+(x1*y1+(i*cols)-1)) = 1;
+        *(mat) = 1;
     }
 }
 
@@ -71,9 +58,10 @@ int getLine(int* mat, int cols, int rows, int* x1, int* y1, int* x2, int* y2)
     scanf("%d", x2);
     scanf("%d", y2);
 
+    return checkLine((int*)mat,cols,rows,*x1,*y1,*x2,*y2);
     if (*x1 == *x2 && *y1 < *y2)
     {
-        if (checkHorizontalLine((int*)mat,cols,rows,*x1,*y1,*x2,*y2))
+        if (checkLine((int*)mat,cols,rows,*x1,*y1,*x2,*y2))
         {
             addHorizontalLine((int*)mat,cols,rows,*x1,*y1,*x2,*y2);
             return 1;
@@ -82,7 +70,7 @@ int getLine(int* mat, int cols, int rows, int* x1, int* y1, int* x2, int* y2)
 
     else if (*x1 < *x2 && *y1 == *y2)
     {
-        if (checkVerticalLine((int*)mat,cols,rows,*x1,*y1,*x2,*y2))
+        if (checkLine((int*)mat,cols,rows,*x1,*y1,*x2,*y2))
         {
             addVerticalLine((int*)mat,cols,rows,*x1,*y1,*x2,*y2);
             return 1;
@@ -113,11 +101,20 @@ int countLines(int* mat, int cols, int rows)
         case 'y':
             res = getLine((int*)mat,cols,rows,&x1,&y1,&x2,&y2);
             if (res){
+                if (x1 == x2 && y1 < y2)
+                {  
+                    addHorizontalLine((int*)mat,cols,rows,x1,y1,x2,y2);     
+                }
+
+                else if (x1 < x2 && y1 == y2)
+                {
+                    addVerticalLine((int*)mat,cols,rows,x1,y1,x2,y2);
+                }
                 printf("Line Added!");
-                count += res;
             }
             else
                 printf("Line can't be added!");
+            count += res;
             break;
 
         case 'n':
@@ -129,13 +126,13 @@ int countLines(int* mat, int cols, int rows)
 }
 
 
-int initMatSize(int COLS, int ROWS, int* cols, int* rows)
+int initMatSize(int maxRows, int maxCols,int* cols, int* rows)
 {
     printf("Enter rows and cols number:\n");
     scanf("%d", rows);
     scanf("%d", cols);
 
-    if (*rows > ROWS || *cols > COLS || *rows < 1 || *cols < 1)
+    if (*rows > maxRows || *cols > maxCols || *rows < 1 || *cols < 1)
     {
         printf("Error, number of rows or cols is invalid!");
         return 0;
@@ -143,21 +140,15 @@ int initMatSize(int COLS, int ROWS, int* cols, int* rows)
     return 1;
 }
 
-void addLines(int COLS, int ROWS)
+void addLines()
 {
     int rows,cols, res = 0;
+    int mat[ROWS][COLS] = {0};
 
     while (!res){
-        res = initMatSize(COLS,ROWS,&cols,&rows);
+        res = initMatSize(ROWS,COLS,&cols,&rows);
     }
 
-    int mat[rows][cols];
-
-    for (int i = 0; i < rows; i++) {
-        for (int j = 0; j < cols; j++) {
-            mat[i][j] = 0;
-        }
-    }
 
     printf("Number of lines is %d",countLines((int*)mat,cols,rows));
 }
