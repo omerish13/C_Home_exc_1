@@ -20,11 +20,11 @@ int checkLine(const int* mat, int cols, int rows,int x1,int y1, int x2, int y2)
         startRow = y1 - 1;
     if (y2 < rows - 1)
         endRow = y2 + 1;
-    
-    mat += startRow * cols;
-    for (int i = startRow; i < endRow; i++)
+
+    mat += (startRow * cols) + startCol;
+    for (int i = startRow; i <= endRow; i++)
     {
-        for (int j = startCol; j < endCol; j++,mat++)
+        for (int j = startCol; j <= endCol; j++,mat++)
         {
             if (*(mat))
             {
@@ -32,7 +32,7 @@ int checkLine(const int* mat, int cols, int rows,int x1,int y1, int x2, int y2)
                 return 0;
             }
         }
-        mat += cols - startCol;
+        mat += cols - (endCol - startCol) - 1;
     }
 
     return 1;
@@ -86,16 +86,16 @@ int countLines(int* mat, int cols, int rows)
             res = getLine((int*)mat,cols,rows,&x1,&y1,&x2,&y2);
             if (res)
             {
-                if (x1 == x2 && y1 < y2)
+                if (x1 == x2 && y1 <= y2)
                 {  
                     addVerticalLine((int*)mat,cols,rows,x1,y1,x2,y2);     
                 }
 
-                else if (x1 < x2 && y1 == y2)
+                else if (x1 <= x2 && y1 == y2)
                 {
                     addHorizontalLine((int*)mat,cols,rows,x1,y1,x2,y2);
                 }
-                showPicture((int*)mat, cols, rows);
+                //showPicture((int*)mat, cols, rows);
             }
             count += res;
 

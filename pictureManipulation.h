@@ -1,7 +1,7 @@
 #ifndef __PICTUREMANIPULATION__
 #define __PICTUREMANIPULATION__
 
-void initMatrix(int* mat,int size);
+void initMatrix(int* mat,int size, int minNum, int maxNum);
 void rotateClockwise(int* mat, int size);
 void rotateCounterClockwise(int* mat, int size);
 void FlipVertical(int* mat, int size);

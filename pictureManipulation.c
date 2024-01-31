@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
-#define MAX 10
+#define MAX 99
 #define MIN 1
 #define SIZE 8
 
@@ -94,17 +94,16 @@ void initPictureSize(int maxSize, int* matSize)
             res = 1;
         }
     }
-    printf("effective mat size is: %d\n", *matSize);
+    printf("effecive mat size is: %d\n", *matSize);
 }
 
-void initMatrix(int* mat,int size)
+void initMatrix(int* mat,int size, int minNum, int maxNum)
 {
-    srand(time(NULL));
     for (int i = 0; i < size; i++)
     {
         for (int j = 0; j < size; j++,mat++)
         {
-            *mat = MIN + (rand()%(MAX-MIN+1));
+            *mat = minNum + (rand()%(maxNum-minNum + 1));
         }
         
     }  
@@ -128,16 +127,16 @@ void pictureManipulation()
     int mat[SIZE][SIZE] = {0};
     int matSize;
     initPictureSize(SIZE,&matSize);
-    initMatrix((int*)mat,matSize);
+    initMatrix((int*)mat, matSize, MIN, MAX);
     int option;
 
     do {
         printMatrix((int*)mat,matSize);
         printf("\n\n");
 	    printf("Please choose one of the following options\n");
-	    printf("1 - 90 degrees clockwise\n");
-        printf("2 - 90 degrees counter clockwise\n");
-        printf("3 - Flip Horizantl\n");
+	    printf("1 - 90 degree clockwise\n");
+        printf("2 - 90 degree counter clockwise\n");
+        printf("3 - Flip Horizontal\n");
         printf("4 - Flip Vertical\n");
 	    printf("-1 - Quit\n");
 
