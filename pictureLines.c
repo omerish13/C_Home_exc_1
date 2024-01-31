@@ -8,7 +8,7 @@ int checkLine(const int* mat, int cols, int rows,int x1,int y1, int x2, int y2)
 {
     if (y1 > rows -1 || y1 < 0 || x1 > cols -1 || x1 < 0 || x2 > cols - 1 || x2 < 0)
         return 0;
-    int startCol = x1,endCol = x2, startRow = y1, endRow = y2;
+    int startCol = x1, endCol = x2, startRow = y1, endRow = y2;
     if (x1 > 0)
         startCol = x1 - 1;
     if (x2 < cols - 1)
@@ -18,10 +18,11 @@ int checkLine(const int* mat, int cols, int rows,int x1,int y1, int x2, int y2)
     if (y2 < rows - 1)
         endRow = y2 + 1;
     
-    mat += (startRow) * cols;
-    for (int i = startRow; i <= endRow; i++)
+    mat += startRow * cols;
+    for (int i = startRow; i < endRow; i++)
     {
-        for (int j = startCol; j <= endCol; j++,mat++){
+        for (int j = startCol; j < endCol; j++,mat++)
+        {
             if (*(mat))
                 return 0;
         }
