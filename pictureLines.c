@@ -6,7 +6,7 @@
 
 int checkLine(const int* mat, int cols, int rows,int x1,int y1, int x2, int y2)
 {
-    if (y1 > (rows - 1) || y1 < 0 || y2 < 0 || y2 > (rows - 1) || x1 > cols -1 || x1 < 0 || x2 > (cols - 1) || x2 < 0 || (x1 != x2 && y1 != y2) || x1 > x2 || y1 > y2)
+    if (y1 > (rows - 1) || y1 < 0 || y2 < 0 || y2 > (rows - 1) || x1 > (cols -1) || x1 < 0 || x2 > (cols - 1) || x2 < 0 || (x1 != x2 && y1 != y2) || x1 > x2 || y1 > y2)
     {
         printf("Line paramaters illigal\n");
         return 0;
@@ -27,8 +27,10 @@ int checkLine(const int* mat, int cols, int rows,int x1,int y1, int x2, int y2)
         for (int j = startCol; j < endCol; j++,mat++)
         {
             if (*(mat))
+            {
                 printf("Line: %d, %d, %d, %d was not inserted to image\n", x1, y1, x2, y2);
                 return 0;
+            }
         }
         mat += cols - startCol;
     }
@@ -58,10 +60,10 @@ void addVerticalLine(int* mat, int cols, int rows, int x1, int y1, int x2, int y
 int getLine(int* mat, int cols, int rows, int* x1, int* y1, int* x2, int* y2)
 {
     printf("Insert line parameters x1, y1, x2, y2\n");
-    scanf("%d", x1);
-    scanf("%d", y1);
-    scanf("%d", x2);
-    scanf("%d", y2);
+    scanf(" %d", x1);
+    scanf(" %d", y1);
+    scanf(" %d", x2);
+    scanf(" %d", y2);
 
     if (checkLine((int*)mat,cols,rows,*x1,*y1,*x2,*y2))
         return 1;     
@@ -102,7 +104,7 @@ int countLines(int* mat, int cols, int rows)
         }
 	    printf("Do you want to enter a new line? 1 for yes, 0 no\n");
 
-	    scanf("%d", &option);
+	    scanf(" %d", &option);
     } while (option != 0);
 
     return count;
@@ -115,7 +117,7 @@ void initMatSize(int maxRows, int maxCols,int* cols, int* rows)
     while (res != 1)
     {
         printf("Insert number of rows for big Matrix between 1 and %d\n", maxRows);
-        scanf("%d", rows);
+        scanf(" %d", rows);
         if (*rows <= maxRows && *rows > 0)
         {
             res = 1;
@@ -125,7 +127,7 @@ void initMatSize(int maxRows, int maxCols,int* cols, int* rows)
     while (res != 1)
     {
         printf("Insert number of columns for big Matrix: between 1 and %d\n", maxCols);
-        scanf("%d", cols);
+        scanf(" %d", cols);
         if (*cols <= maxCols && *cols > 0)
         {
             res = 1;
