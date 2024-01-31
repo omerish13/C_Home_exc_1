@@ -15,7 +15,6 @@ int main()
 {
 
 	char option = 'N';
-
 	
 	do
 	{
@@ -26,7 +25,7 @@ int main()
 		printf("P/p - Picture Manipulation\n");
 		printf("E/e - Exit\n");
 
-		scanf("%c", &option);
+		scanf(" %c", &option);
 		switch (option)
 		{
 		case 'S':
@@ -34,37 +33,38 @@ int main()
 			sudokuGame();
 			break;
 		}
-		case 's':
-		{
-			sudokuGame();
-			break;
-		}
+		 case 's':
+		 {
+		 	sudokuGame();
+		 	break;
+		 }
 		case 'A':
 		{
 			addLines();
 			break;
 		}
-		case 'a':
-		{
-			addLines();
-			break;
-		}
+		 case 'a':
+		 {
+		 	addLines();
+		 	break;
+		 }
 		case 'P':
 		{
 			pictureManipulation();
 			break;
 		}
 		case 'p':
-		{
-			pictureManipulation();
-			break;
-		}
+		 {
+		 	pictureManipulation();
+		 	break;
+		 }
 
 		case 'E':
 			break;
 		case 'e':
-			break;
+		 	break;
 		}
 	} while (option != 'E' && option != 'e');
+	printf("Bye bye\n");
 	
 }

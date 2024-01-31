@@ -2,10 +2,9 @@
 #include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
-// #include <ctype.h>
 #define MAX 10
 #define MIN 1
-#define SIZE 5
+#define SIZE 8
 
 void rotateClockwise(int* mat, int size)
 {
@@ -82,6 +81,22 @@ void FlipHorizontal(int* mat, int size)
     
 }
 
+void initPictureSize(int maxSize, int* matSize)
+{
+    int res = 0;
+    printf("Max mat size is: %d\n", maxSize);
+    while (res != 1)
+    {
+        printf("Insert picture size between 1 and %d\n", maxSize);
+        scanf("%d", matSize);
+        if (*matSize <= maxSize && *matSize > 0)
+        {
+            res = 1;
+        }
+    }
+    printf("effective mat size is: %d\n", *matSize);
+}
+
 void initMatrix(int* mat,int size)
 {
     srand(time(NULL));
@@ -92,14 +107,16 @@ void initMatrix(int* mat,int size)
             *mat = MIN + (rand()%(MAX-MIN+1));
         }
         
-    }
-    
+    }  
 }
 
-void printMatrix(const int* mat, int cols, int rows) {
-    for (int i = 0; i < rows; i++) {
-        for (int j = 0; j < cols; j++) {
-            printf("%d ", *mat); 
+void printMatrix(const int* mat, int matSize) 
+{
+    for (int i = 0; i < matSize; i++) 
+    {
+        for (int j = 0; j < matSize; j++) 
+        {
+            printf("%5d", *mat); 
             mat++;
         }
         printf("\n");
@@ -109,47 +126,54 @@ void printMatrix(const int* mat, int cols, int rows) {
 void pictureManipulation()
 {
     int mat[SIZE][SIZE] = {0};
-    initMatrix((int*)mat,SIZE);
-    char option;
+    int matSize;
+    initPictureSize(SIZE,&matSize);
+    initMatrix((int*)mat,matSize);
+    int option;
 
     do {
-        // printMatrix((int*)mat,SIZE,SIZE);
+        printMatrix((int*)mat,matSize);
         printf("\n\n");
-	    printf("What do you want to do?\n");
-	    printf("a - Rotate 90 degrees clockwise\n");
-        printf("b - Rotate 90 degrees counter clockwise\n");
-        printf("c - Flip verticly\n");
-        printf("d - Flip horizantly\n");
-	    printf("e - Finish and Exit\n");
+	    printf("Please choose one of the following options\n");
+	    printf("1 - 90 degrees clockwise\n");
+        printf("2 - 90 degrees counter clockwise\n");
+        printf("3 - Flip Horizantl\n");
+        printf("4 - Flip Vertical\n");
+	    printf("-1 - Quit\n");
 
-	    scanf("%c", &option);
+	    scanf(" %d", &option);
         switch (option)
         {
-            case 'a':
+            case 1:
             {
-                rotateClockwise((int*)mat,SIZE);
+                rotateClockwise((int*)mat,matSize);
+                printf("--------- picture after manipulation ---------\n");
                 break;
             }
-            case 'b':
+            case 2:
             {
-                rotateCounterClockwise((int*)mat,SIZE);
+                rotateCounterClockwise((int*)mat,matSize);
+                printf("--------- picture after manipulation ---------\n");
                 break;
             }
-            case 'c':
+            case 3:
             {
-                FlipVertical((int*)mat,SIZE);
+                FlipHorizontal((int*)mat,matSize);
+                printf("--------- picture after manipulation ---------\n");
                 break;
             }
-            case 'd':
+            case 4:
             {
-                FlipHorizontal((int*)mat,SIZE);
+                FlipVertical((int*)mat,matSize);
+                printf("--------- picture after manipulation ---------\n");
                 break;
             }
-            case 'e':
+            case -1:
             {
                 break;
             }
         }
-    } while (option != 'e');
+    } while (option != -1);
+    printf("Bye bye\n");
 
 }
