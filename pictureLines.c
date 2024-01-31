@@ -57,7 +57,7 @@ void addVerticalLine(int* mat, int cols, int rows, int x1, int y1, int x2, int y
 
 int getLine(int* mat, int cols, int rows, int* x1, int* y1, int* x2, int* y2)
 {
-    printf("Insert Line paramaters x1, y1, x2, y2\n");
+    printf("Insert line parameters x1, y1, x2, y2\n");
     scanf("%d", x1);
     scanf("%d", y1);
     scanf("%d", x2);
@@ -100,7 +100,7 @@ int countLines(int* mat, int cols, int rows)
         case 0:
             break;
         }
-	    printf("Do you want to enter a new Line? 1 for yes, 0 no\n");
+	    printf("Do you want to enter a new line? 1 for yes, 0 no\n");
 
 	    scanf("%d", &option);
     } while (option != 0);
@@ -124,7 +124,7 @@ void initMatSize(int maxRows, int maxCols,int* cols, int* rows)
     res = 0;
     while (res != 1)
     {
-        printf("Insert number of columns for big Matrix between 1 and %d\n", maxCols);
+        printf("Insert number of columns for big Matrix: between 1 and %d\n", maxCols);
         scanf("%d", cols);
         if (*cols <= maxCols && *cols > 0)
         {
@@ -159,7 +159,7 @@ void addLines()
 
     printf("Effective size %d*%d\n", rows, cols);
 
-    printf("Final picture after adding %d Lines\n", countLines((int*)mat,cols,rows));
+    printf("Final picture after adding %d lines\n", countLines((int*)mat,cols,rows));
     showPicture((int*)mat, cols, rows);
     printf("\n");
 }
