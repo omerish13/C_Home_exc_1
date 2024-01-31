@@ -7,7 +7,10 @@
 int checkLine(const int* mat, int cols, int rows,int x1,int y1, int x2, int y2)
 {
     if (y1 > (rows - 1) || y1 < 0 || y2 < 0 || y2 > (rows - 1) || x1 > cols -1 || x1 < 0 || x2 > (cols - 1) || x2 < 0 || (x1 != x2 && y1 != y2) || x1 > x2 || y1 > y2)
+    {
+        printf("Line paramaters illigal\n");
         return 0;
+    }
     int startCol = x1, endCol = x2, startRow = y1, endRow = y2;
     if (x1 > 0)
         startCol = x1 - 1;
@@ -24,6 +27,7 @@ int checkLine(const int* mat, int cols, int rows,int x1,int y1, int x2, int y2)
         for (int j = startCol; j < endCol; j++,mat++)
         {
             if (*(mat))
+                printf("Line: %d, %d, %d, %d was not inserted to image\n", x1, y1, x2, y2);
                 return 0;
         }
         mat += cols - startCol;
@@ -78,7 +82,8 @@ int countLines(int* mat, int cols, int rows)
         {
         case 1:
             res = getLine((int*)mat,cols,rows,&x1,&y1,&x2,&y2);
-            if (res){
+            if (res)
+            {
                 if (x1 == x2 && y1 < y2)
                 {  
                     addVerticalLine((int*)mat,cols,rows,x1,y1,x2,y2);     
@@ -90,10 +95,7 @@ int countLines(int* mat, int cols, int rows)
                 }
                 showPicture((int*)mat, cols, rows);
             }
-            else
-                printf("Line: %d, %d, %d, %d was not inserted to image\n", x1, y1, x2, y2);
             count += res;
-            break;
 
         case 0:
             break;
@@ -159,5 +161,6 @@ void addLines()
 
     printf("Final picture after adding %d Lines\n", countLines((int*)mat,cols,rows));
     showPicture((int*)mat, cols, rows);
+    printf("\n");
 }
 
