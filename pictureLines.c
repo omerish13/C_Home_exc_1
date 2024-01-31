@@ -6,7 +6,7 @@
 
 int checkLine(const int* mat, int cols, int rows,int x1,int y1, int x2, int y2)
 {
-    if (y1 > rows -1 || y1 < 0 || x1 > cols -1 || x1 < 0 || x2 > cols - 1 || x2 < 0)
+    if (y1 > (rows - 1) || y1 < 0 || y2 < 0 || y2 > (rows - 1) || x1 > cols -1 || x1 < 0 || x2 > (cols - 1) || x2 < 0 || (x1 != x2 && y1 != y2) || x1 > x2 || y1 > y2)
         return 0;
     int startCol = x1, endCol = x2, startRow = y1, endRow = y2;
     if (x1 > 0)
@@ -61,7 +61,6 @@ int getLine(int* mat, int cols, int rows, int* x1, int* y1, int* x2, int* y2)
 
     if (checkLine((int*)mat,cols,rows,*x1,*y1,*x2,*y2))
         return 1;     
-
     return 0;
 
 }
