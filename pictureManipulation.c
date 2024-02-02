@@ -6,122 +6,6 @@
 #define MIN 1
 #define SIZE 8
 
-void rotateClockwise(int* mat, int size)
-{
-    int temp;
-    for (int i = 0; i < size/2; i++)
-    {
-        for (int j = i; j < size - i - 1; j++)
-        {
-            temp = *(mat+ i * size + j);
-            *(mat+ i * size + j) = *(mat + (size - 1 - j) * size + i);
-            *(mat + (size - 1 - j) * size + i) = *(mat + (size - 1 - i) * size + (size - 1 - j));
-            *(mat + (size - 1 - i) * size + (size - 1 - j)) = *(mat + j * size + (size - 1 - i));
-            *(mat + j * size + (size - 1 - i)) = temp;
-        }
-        
-    }
-    
-}
-
-void rotateCounterClockwise(int* mat, int size)
-{
-    int temp;
-    for (int i = 0; i < size/2; i++)
-    {
-        for (int j = i; j < size - i - 1; j++)
-        {
-            temp = *(mat+ i * size + j);
-            *(mat+ i * size + j) = *(mat + j * size + (size - 1 - i));
-            *(mat + j * size + (size - 1 - i)) = *(mat + (size - 1 - i) * size + (size - 1 - j));
-            *(mat + (size - 1 - i) * size + (size - 1 - j)) = *(mat + (size - 1 - j) * size + i);
-            *(mat + (size - 1 - j) * size + i) = temp;
-        }
-        
-    }
-    
-}
-
-void FlipVertical(int* mat, int size)
-{
-    int temp;
-    int *start, *end;
-    for (int i = 0; i < size; i++)
-    {
-        start = mat+i*size;
-        end = mat+i*size +size - 1;
-        for (int j = 0; j < size / 2; j++,start++,end--)
-        {
-            temp = *start;
-            *start = *end;
-            *end = temp;
-        }
-        
-    }
-    
-}
-
-void FlipHorizontal(int* mat, int size)
-{
-    int temp;
-    int *top, *bottom;
-
-    for (int i = 0; i < size / 2; i++)
-    {
-        top = mat + i * size;
-        bottom = mat + size * (size-i-1);
-        for (int j = 0; j < size; j++,top++,bottom++)
-        {
-            temp = *top;
-            *top = *bottom;
-            *bottom = temp;
-        }
-        
-    }
-    
-}
-
-void initPictureSize(int maxSize, int* matSize)
-{
-    int res = 0;
-    printf("Max mat size is: %d\n", maxSize);
-    while (res != 1)
-    {
-        printf("Insert picture size between 1 and %d\n", maxSize);
-        scanf("%d", matSize);
-        if (*matSize <= maxSize && *matSize > 0)
-        {
-            res = 1;
-        }
-    }
-    printf("effecive mat size is: %d\n", *matSize);
-}
-
-void initMatrix(int* mat,int size, int minNum, int maxNum)
-{
-    for (int i = 0; i < size; i++)
-    {
-        for (int j = 0; j < size; j++,mat++)
-        {
-            *mat = minNum + (rand()%(maxNum-minNum + 1));
-        }
-        
-    }  
-}
-
-void printMatrix(const int* mat, int matSize) 
-{
-    for (int i = 0; i < matSize; i++) 
-    {
-        for (int j = 0; j < matSize; j++) 
-        {
-            printf("%5d", *mat); 
-            mat++;
-        }
-        printf("\n");
-    }
-}
-
 void pictureManipulation()
 {
     int mat[SIZE][SIZE] = {0};
@@ -175,4 +59,120 @@ void pictureManipulation()
     } while (option != -1);
     printf("Bye bye\n");
 
+}
+
+void initPictureSize(int maxSize, int* matSize)
+{
+    int res = 0;
+    printf("Max mat size is: %d\n", maxSize);
+    while (res != 1)
+    {
+        printf("Insert picture size between 1 and %d\n", maxSize);
+        scanf("%d", matSize);
+        if (*matSize <= maxSize && *matSize > 0)
+        {
+            res = 1;
+        }
+    }
+    printf("effecive mat size is: %d\n", *matSize);
+}
+
+void initMatrix(int* mat,int size, int minNum, int maxNum)
+{
+    for (int i = 0; i < size; i++)
+    {
+        for (int j = 0; j < size; j++,mat++)
+        {
+            *mat = minNum + (rand()%(maxNum-minNum + 1));
+        }
+        
+    }  
+}
+
+void printMatrix(const int* mat, int matSize) 
+{
+    for (int i = 0; i < matSize; i++) 
+    {
+        for (int j = 0; j < matSize; j++) 
+        {
+            printf("%5d", *mat); 
+            mat++;
+        }
+        printf("\n");
+    }
+}
+
+void rotateClockwise(int* mat, int size)
+{
+    int temp;
+    for (int i = 0; i < size/2; i++)
+    {
+        for (int j = i; j < size - i - 1; j++)
+        {
+            temp = *(mat+ i * size + j);
+            *(mat+ i * size + j) = *(mat + (size - 1 - j) * size + i);
+            *(mat + (size - 1 - j) * size + i) = *(mat + (size - 1 - i) * size + (size - 1 - j));
+            *(mat + (size - 1 - i) * size + (size - 1 - j)) = *(mat + j * size + (size - 1 - i));
+            *(mat + j * size + (size - 1 - i)) = temp;
+        }
+        
+    }
+    
+}
+
+void rotateCounterClockwise(int* mat, int size)
+{
+    int temp;
+    for (int i = 0; i < size/2; i++)
+    {
+        for (int j = i; j < size - i - 1; j++)
+        {
+            temp = *(mat+ i * size + j);
+            *(mat+ i * size + j) = *(mat + j * size + (size - 1 - i));
+            *(mat + j * size + (size - 1 - i)) = *(mat + (size - 1 - i) * size + (size - 1 - j));
+            *(mat + (size - 1 - i) * size + (size - 1 - j)) = *(mat + (size - 1 - j) * size + i);
+            *(mat + (size - 1 - j) * size + i) = temp;
+        }
+        
+    }
+    
+}
+
+void FlipHorizontal(int* mat, int size)
+{
+    int temp;
+    int *top, *bottom;
+
+    for (int i = 0; i < size / 2; i++)
+    {
+        top = mat + i * size;
+        bottom = mat + size * (size-i-1);
+        for (int j = 0; j < size; j++,top++,bottom++)
+        {
+            temp = *top;
+            *top = *bottom;
+            *bottom = temp;
+        }
+        
+    }
+    
+}
+
+void FlipVertical(int* mat, int size)
+{
+    int temp;
+    int *start, *end;
+    for (int i = 0; i < size; i++)
+    {
+        start = mat+i*size;
+        end = mat+i*size +size - 1;
+        for (int j = 0; j < size / 2; j++,start++,end--)
+        {
+            temp = *start;
+            *start = *end;
+            *end = temp;
+        }
+        
+    }
+    
 }
