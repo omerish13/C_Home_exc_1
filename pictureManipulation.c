@@ -1,7 +1,8 @@
-#include "pictureManipulation.h"
 #include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
+#include "pictureManipulation.h"
+#include "matrix.h"
 #define MAX 99
 #define MIN 1
 #define SIZE 8
@@ -15,7 +16,7 @@ void pictureManipulation()
     int option;
 
     do {
-        printMatrix((int*)mat,matSize);
+        printMatrix((int*)mat,matSize,matSize);
         printf("\n\n");
 	    printf("Please choose one of the following options\n");
 	    printf("1 - 90 degree clockwise\n");
@@ -87,19 +88,6 @@ void initMatrix(int* mat,int size, int minNum, int maxNum)
         }
         
     }  
-}
-
-void printMatrix(const int* mat, int matSize) 
-{
-    for (int i = 0; i < matSize; i++) 
-    {
-        for (int j = 0; j < matSize; j++) 
-        {
-            printf("%5d", *mat); 
-            mat++;
-        }
-        printf("\n");
-    }
 }
 
 void rotateClockwise(int* mat, int size)

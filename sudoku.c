@@ -1,7 +1,8 @@
-#include "sudoku.h"
 #include <string.h>
 #include <math.h>
 #include <stdio.h>
+#include "sudoku.h"
+#include "matrix.h"
 
 #define N 25
 
@@ -16,7 +17,7 @@ void sudokuGame()
 
 	initBoard((int*)mat, size, size*size);
 
-	showBoard((int*)mat,size);
+	printMatrix((int*)mat,size,size);
 
 	if (checkBoard((int*)mat,size))
 		printf("A valid Sudoku\n");
@@ -48,20 +49,6 @@ void initBoard(int* mat, int size, int elemnts)
 	{
 		printf("enter element %d %d: ", i / size, i % size);
 		scanf("%d", mat);
-	}
-}
-
-void showBoard(const int* mat, int size)
-{
-	for (int i = 0; i < size; i++)
-	{
-		for (int j = 0; j < size; j++)
-		{
-			printf("%5d",*mat);
-			mat++;
-
-		}
-		printf("\n");
 	}
 }
 

@@ -1,5 +1,6 @@
-#include "pictureLines.h"
 #include <stdio.h>
+#include "pictureLines.h"
+#include "matrix.h"
 
 #define ROWS 50
 #define COLS 50
@@ -16,7 +17,7 @@ void addLines()
     printf("Effective size %d*%d\n", rows, cols);
 
     printf("Final picture after adding %d lines\n", countLines((int*)mat,cols,rows));
-    showPicture((int*)mat, cols, rows);
+    printMatrix((int*)mat, cols, rows);
     printf("\n");
 }
 
@@ -43,20 +44,6 @@ void initMatSize(int maxRows, int maxCols,int* cols, int* rows)
         }
     }
  
-}
-
-void showPicture(const int* mat, int cols, int rows)
-{
-	for (int i = 0; i < rows; i++)
-	{
-		for (int j = 0; j < cols; j++)
-		{
-			printf("%5d",*mat);
-			mat++;
-
-		}
-		printf("\n");
-	}
 }
 
 int countLines(int* mat, int cols, int rows)
